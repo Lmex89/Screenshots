@@ -6,12 +6,13 @@ const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
 puppeteer.use(AdblockerPlugin());
 
 const baseUrl = `https://mangas.in/manga/nozoki-ana/`;
-
+// here we parse url where we can all next chapter
 const NewUrlGet = (urlToParse) => {
     const re = /(?!\/)(\d+-)(\w+)(\d*)/;
     return urlToParse.match(re);
 };
 
+// this is the config where all screeshots are taken 
 const takeScreenshot = async(urlBegin, pagenumber) => {
     const browser = await puppeteer.launch({
         headless: true, // Set to false while development
@@ -46,7 +47,7 @@ const takeScreenshot = async(urlBegin, pagenumber) => {
         await page.screenshot(options);
         await browser.close();
     } else {
-        console.log(last_url, url, " ..... does not match Broweser close");
+        console.log(last_url, url, " ..... does not match Browser close");
         await browser.close();
         return last_url;
     }
